@@ -1,0 +1,412 @@
+[
+    {
+      "id": "s1",
+      "value": 1,
+      "multiplier": 1
+    },
+    {
+      "id": "s1",
+      "value": 1,
+      "multiplier": 1
+    },
+    {
+      "id": "d1",
+      "value": 1,
+      "multiplier": 2
+    },
+    {
+      "id": "t1",
+      "value": 1,
+      "multiplier": 3
+    },
+    {
+      "id": "s2",
+      "value": 2,
+      "multiplier": 1
+    },
+    {
+      "id": "s2",
+      "value": 2,
+      "multiplier": 1
+    },
+    {
+      "id": "d2",
+      "value": 2,
+      "multiplier": 2
+    },
+    {
+      "id": "t2",
+      "value": 2,
+      "multiplier": 3
+    },
+    {
+      "id": "s3",
+      "value": 3,
+      "multiplier": 1
+    },
+    {
+      "id": "s3",
+      "value": 3,
+      "multiplier": 1
+    },
+    {
+      "id": "d3",
+      "value": 3,
+      "multiplier": 2
+    },
+    {
+      "id": "t3",
+      "value": 3,
+      "multiplier": 3
+    },
+    {
+      "id": "s4",
+      "value": 4,
+      "multiplier": 1
+    },
+    {
+      "id": "s4",
+      "value": 4,
+      "multiplier": 1
+    },
+    {
+      "id": "d4",
+      "value": 4,
+      "multiplier": 2
+    },
+    {
+      "id": "t4",
+      "value": 4,
+      "multiplier": 3
+    },
+    {
+      "id": "s5",
+      "value": 5,
+      "multiplier": 1
+    },
+    {
+      "id": "s5",
+      "value": 5,
+      "multiplier": 1
+    },
+    {
+      "id": "d5",
+      "value": 5,
+      "multiplier": 2
+    },
+    {
+      "id": "t5",
+      "value": 5,
+      "multiplier": 3
+    },
+    {
+      "id": "s6",
+      "value": 6,
+      "multiplier": 1
+    },
+    {
+      "id": "s6",
+      "value": 6,
+      "multiplier": 1
+    },
+    {
+      "id": "d6",
+      "value": 6,
+      "multiplier": 2
+    },
+    {
+      "id": "t6",
+      "value": 6,
+      "multiplier": 3
+    },
+    {
+      "id": "s7",
+      "value": 7,
+      "multiplier": 1
+    },
+    {
+      "id": "s7",
+      "value": 7,
+      "multiplier": 1
+    },
+    {
+      "id": "d7",
+      "value": 7,
+      "multiplier": 2
+    },
+    {
+      "id": "t7",
+      "value": 7,
+      "multiplier": 3
+    },
+    {
+      "id": "s8",
+      "value": 8,
+      "multiplier": 1
+    },
+    {
+      "id": "s8",
+      "value": 8,
+      "multiplier": 1
+    },
+    {
+      "id": "d8",
+      "value": 8,
+      "multiplier": 2
+    },
+    {
+      "id": "t8",
+      "value": 8,
+      "multiplier": 3
+    },
+    {
+      "id": "s9",
+      "value": 9,
+      "multiplier": 1
+    },
+    {
+      "id": "s9",
+      "value": 9,
+      "multiplier": 1
+    },
+    {
+      "id": "d9",
+      "value": 9,
+      "multiplier": 2
+    },
+    {
+      "id": "t9",
+      "value": 9,
+      "multiplier": 3
+    },
+    {
+      "id": "s10",
+      "value": 10,
+      "multiplier": 1
+    },
+    {
+      "id": "s10",
+      "value": 10,
+      "multiplier": 1
+    },
+    {
+      "id": "d10",
+      "value": 10,
+      "multiplier": 2
+    },
+    {
+      "id": "t10",
+      "value": 10,
+      "multiplier": 3
+    },
+    {
+      "id": "s11",
+      "value": 11,
+      "multiplier": 1
+    },
+    {
+      "id": "s11",
+      "value": 11,
+      "multiplier": 1
+    },
+    {
+      "id": "d11",
+      "value": 11,
+      "multiplier": 2
+    },
+    {
+      "id": "t11",
+      "value": 11,
+      "multiplier": 3
+    },
+    {
+      "id": "s12",
+      "value": 12,
+      "multiplier": 1
+    },
+    {
+      "id": "s12",
+      "value": 12,
+      "multiplier": 1
+    },
+    {
+      "id": "d12",
+      "value": 12,
+      "multiplier": 2
+    },
+    {
+      "id": "t12",
+      "value": 12,
+      "multiplier": 3
+    },
+    {
+      "id": "s13",
+      "value": 13,
+      "multiplier": 1
+    },
+    {
+      "id": "s13",
+      "value": 13,
+      "multiplier": 1
+    },
+    {
+      "id": "d13",
+      "value": 13,
+      "multiplier": 2
+    },
+    {
+      "id": "t13",
+      "value": 13,
+      "multiplier": 3
+    },
+    {
+      "id": "s14",
+      "value": 14,
+      "multiplier": 1
+    },
+    {
+      "id": "s14",
+      "value": 14,
+      "multiplier": 1
+    },
+    {
+      "id": "d14",
+      "value": 14,
+      "multiplier": 2
+    },
+    {
+      "id": "t14",
+      "value": 14,
+      "multiplier": 3
+    },
+    {
+      "id": "s15",
+      "value": 15,
+      "multiplier": 1
+    },
+    {
+      "id": "s15",
+      "value": 15,
+      "multiplier": 1
+    },
+    {
+      "id": "d15",
+      "value": 15,
+      "multiplier": 2
+    },
+    {
+      "id": "t15",
+      "value": 15,
+      "multiplier": 3
+    },
+    {
+      "id": "s16",
+      "value": 16,
+      "multiplier": 1
+    },
+    {
+      "id": "s16",
+      "value": 16,
+      "multiplier": 1
+    },
+    {
+      "id": "d16",
+      "value": 16,
+      "multiplier": 2
+    },
+    {
+      "id": "t16",
+      "value": 16,
+      "multiplier": 3
+    },
+    {
+      "id": "s17",
+      "value": 17,
+      "multiplier": 1
+    },
+    {
+      "id": "s17",
+      "value": 17,
+      "multiplier": 1
+    },
+    {
+      "id": "d17",
+      "value": 17,
+      "multiplier": 2
+    },
+    {
+      "id": "t17",
+      "value": 17,
+      "multiplier": 3
+    },
+    {
+      "id": "s18",
+      "value": 18,
+      "multiplier": 1
+    },
+    {
+      "id": "s18",
+      "value": 18,
+      "multiplier": 1
+    },
+    {
+      "id": "d18",
+      "value": 18,
+      "multiplier": 2
+    },
+    {
+      "id": "t18",
+      "value": 18,
+      "multiplier": 3
+    },
+    {
+      "id": "s19",
+      "value": 19,
+      "multiplier": 1
+    },
+    {
+      "id": "s19",
+      "value": 19,
+      "multiplier": 1
+    },
+    {
+      "id": "d19",
+      "value": 19,
+      "multiplier": 2
+    },
+    {
+      "id": "t19",
+      "value": 19,
+      "multiplier": 3
+    },
+    {
+      "id": "s20",
+      "value": 20,
+      "multiplier": 1
+    },
+    {
+      "id": "s20",
+      "value": 20,
+      "multiplier": 1
+    },
+    {
+      "id": "d20",
+      "value": 20,
+      "multiplier": 2
+    },
+    {
+      "id": "t20",
+      "value": 20,
+      "multiplier": 3
+    },
+    {
+      "id": "sB",
+      "value": 25,
+      "multiplier": 1
+    },
+    {
+      "id": "dB",
+      "value": 25,
+      "multiplier": 2
+    }
+  ]
