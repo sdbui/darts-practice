@@ -1,8 +1,10 @@
 import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-import './App.css'
+
+import styles from './styles.module.scss';
 import Dartboard from './components/dartboard';
 import { Segment } from './components/dartboard';
+
+import Accuracy1 from './games/accuracy1';
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -13,14 +15,16 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Dartboard onHit={handleHit}/>
+    <div className={styles.App}>
+      <Accuracy1></Accuracy1>
+
+      {/* <Dartboard onHit={handleHit}/>
       {lastHit ? (
         <>
           <p>Last Segment Hit: {lastHit?.id}</p>
           <p>Value: {lastHit.value * lastHit.multiplier}</p>
         </>
-      ) : null}
+      ) : null} */}
     </div>
   )
 }

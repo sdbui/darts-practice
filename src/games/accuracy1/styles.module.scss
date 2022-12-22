@@ -1,0 +1,74 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resetButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+.dartboardContainer {
+    height: 50vh;
+    min-width: 500px
+}
+
+.roundInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.roundActions {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: space-between;
+    button {
+        flex: 2;
+        cursor: pointer;
+        height: 2.5rem;
+    }
+    .nextRoundBtn {
+        flex: 3;
+        flex-basis: 100%;
+    }
+    .undoBtn {
+        flex: 1;
+        cursor: not-allowed;
+    }
+}
+
+
+.overlay {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 100;
+    background: rgba(0,0,0, 0.8);
+    top: 0; 
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.completeMessage {
+    height: 50vh;
+    width: 50vw;
+    text-align: center;
+    background: #fff;
+}

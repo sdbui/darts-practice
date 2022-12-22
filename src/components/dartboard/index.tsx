@@ -21,7 +21,7 @@ function Dartboard ({ onHit }: {
     }
 
     return (
-        <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="787px" height="774px" viewBox="0 0 787 774" enableBackground="new 0 0 787 774" xmlSpace="preserve">
+        <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 787 774" enableBackground="new 0 0 787 774" xmlSpace="preserve">
             <g id="areas" onClick={handleClick} >
                 <path id="s19" fill="#F7E9CD" d="M327.95 561.926c-1.952-0.825-3.879-1.693-5.795-2.581l66.1-138.906 c2.034 0.8 4.2 1.5 6.4 1.884L374.688 574.84C358.626 572.6 343 568.3 327.9 561.926z M358.728 696.9 l13.366-102.239c-17.849-2.479-35.233-7.257-51.936-14.321c-2.225-0.941-4.422-1.932-6.605-2.945l-44.31 93.1 c3.562 1.7 7.2 3.3 10.8 4.827C305.328 686.1 331.7 693.3 358.7 696.928z"/>
                 <path id="s14" d="M215.161 362.688c2.248-16.062 6.555-31.707 12.914-46.739c0.825-1.952 1.693-3.879 2.581-5.796l138.907 66.1 c-0.828 2.034-1.463 4.165-1.884 6.372L215.161 362.688z M93.073 346.728l102.239 13.366c2.479-17.849 7.256-35.233 14.321-51.936 c0.941-2.225 1.932-4.422 2.945-6.605l-93.115-44.31c-1.667 3.562-3.29 7.15-4.828 10.8 C103.936 293.3 96.7 319.7 93.1 346.728z"/>
