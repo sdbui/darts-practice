@@ -71,6 +71,7 @@ function Accuracy1() {
 
 
     function handleHit(segment: Segment) {
+        debugger;
         // do nothing if already thrown 3 darts in this round
         if (dartsThrown === 3) return;
         setDartsThrown(prev => prev + 1);
@@ -89,6 +90,7 @@ function Accuracy1() {
     }
 
     function nextRound() {
+        debugger;
         // check current round to see if we need to update anything
         if (hitCount >= 2) {
             addTallyMark(currentTarget!.id);
@@ -158,7 +160,6 @@ function Accuracy1() {
     }
 
     useEffect(() => {
-        console.log('what')
         startGame();
         return () => {
             cleanup();
@@ -174,7 +175,9 @@ function Accuracy1() {
                     <p>currentTarget: {currentTarget?.id}</p>
                 </div>
                 <div className={styles.dartboardContainer}>
-                    <Dartboard onHit={handleHit}></Dartboard>
+                    <Dartboard autoScore
+                        onHit={handleHit}
+                        onSkip={nextRound}></Dartboard>
                 </div>
                 <div>
                     darts thrown: {dartsThrown}
@@ -211,7 +214,6 @@ function CompletedOverlay({onReset}: {
 interface TallyProps {
     tallies: typeof defaultTallies,
     includeBull?: boolean,
-    autoScore?: boolean,
 }
 function TallyBoard({tallies, includeBull = false}: TallyProps) {
     return (
