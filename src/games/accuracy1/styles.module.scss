@@ -72,3 +72,25 @@
     text-align: center;
     background: #fff;
 }
+
+.tallyListItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tallyMarks {
+    display: flex;
+}
+.tallyMark {
+    width: 5px;
+    height: 30px;
+    background: black;
+    margin-right: 5px;
+    &:nth-child(5) {
+        position: absolute;
+        transform: rotate(-50deg);
+        height: 46px;
+        transform-origin: 1px 3px;
+    }
+}

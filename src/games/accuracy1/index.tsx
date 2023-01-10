@@ -3,51 +3,14 @@ import Dartboard, { Segment } from "../../components/dartboard";
 import styles from './styles.module.scss';
 
 
-interface Target {
-    id: string;
-    remaining: number;
-}
 interface Tally {
     id: number;
 }
-const defaultTargets: Target[] = [
-    {
-        id: 's20',
-        remaining: 1
-    },
-    {
-        id: 's19',
-        remaining: 2
-    },
-    {
-        id: 's18',
-        remaining: 1
-    },
-    {
-        id: 's17',
-        remaining: 5
-    },
-    {
-        id: 's16',
-        remaining: 5
-    },
-    {
-        id: 's15',
-        remaining: 5
-    },
-    {
-        id: 's14',
-        remaining: 5
-    },
-    {
-        id: 's13',
-        remaining: 5
-    },
-    {
-        id: 'sB',
-        remaining: 5
-    }
+
+const defaultTargetIds: string[] = [
+    's20', 's19', 's18', 's17', 's16', 's15', 's14', 's13', 'sB'
 ];
+
 const defaultTallies: {[key: string]: number} = {
     s20: 0,
     s19: 0,
@@ -61,25 +24,37 @@ const defaultTallies: {[key: string]: number} = {
 }
 
 function Accuracy1() {
-    let targetQueue = useRef([...defaultTargets]);
+    // let targetQueue = useRef([...defaultTargets]);
+    let targetQueue = useRef([...defaultTargetIds]);
     let [tallies, setTallies] = useState(defaultTallies)
     const [gameOver, setGameOver] = useState(false)
-    const [currentTarget, setCurrentTarget] = useState<Target | null>();
+    const [currentTarget, setCurrentTarget] = useState<string>('');
     const [round, setRound] = useState<number>(1);
     const [dartsThrown, setDartsThrown] = useState<number>(0);
     const [hitCount, setHitCount] = useState<number>(0);
 
 
+    // hacky fix for callbacks in Dartboard component being called with original states always
+    // instead of checking state directly, check a reference to it that is updated everytime state changes.... is there a better way to do this?
+    let currentTargetRef = useRef(currentTarget);
+    let dartsThrownRef = useRef(dartsThrown);
+    let hitCountRef = useRef(hitCount);
+    useEffect(()=> {
+        currentTargetRef.current = currentTarget;
+        dartsThrownRef.current = dartsThrown;
+        hitCountRef.current = hitCount;
+    },[currentTarget, dartsThrown, hitCount])
+
     function handleHit(segment: Segment) {
-        debugger;
         // do nothing if already thrown 3 darts in this round
-        if (dartsThrown === 3) return;
+        if (dartsThrownRef.current === 3) return;
         setDartsThrown(prev => prev + 1);
 
         // seperate case for bull since double and single are the same
         let hitId = segment.id;
         if (hitId === 'dB') hitId = 'sB'; // targets and tallies both use sB 
-        if (hitId === currentTarget?.id) {
+        console.log('currentTarget in handleHit:', currentTargetRef?.current)
+        if (hitId === currentTargetRef.current) {
             setHitCount((prev) => prev + 1);
         }
     }
@@ -90,18 +65,16 @@ function Accuracy1() {
     }
 
     function nextRound() {
-        debugger;
         // check current round to see if we need to update anything
-        if (hitCount >= 2) {
-            addTallyMark(currentTarget!.id);
-
+        if (hitCountRef.current >= 2) {
             // we hit our target 2 times... decrement remaining and add back to queue
-            if (currentTarget!.remaining > 1) {
-                let updatedTarget = {
-                    ...currentTarget,
-                    remaining: currentTarget!.remaining - 1
-                } as Target;
-                targetQueue.current.push(updatedTarget);
+            addTallyMark(currentTargetRef.current);
+
+            // talies wont be updated until next render... so if the current tallies is 4, that means it will be 5 next render.
+            // therefore, don't add back to the targetQueue
+            console.log('currentTarget in nextRound:', currentTargetRef.current)
+            if (tallies[currentTargetRef.current] < 4) {
+                targetQueue.current.push(currentTarget);
             }
             // check for completion
             if (!targetQueue.current.length) {
@@ -111,29 +84,29 @@ function Accuracy1() {
             }
         } else {
             // didnt hit... add back to queue
-            targetQueue.current.push(currentTarget!);
+            targetQueue.current.push(currentTargetRef.current!);
         }
 
         setRound(round => round + 1);
         setDartsThrown(0);
         // get next target
         let newTarget = targetQueue.current.shift();
-        setCurrentTarget(newTarget);
+        setCurrentTarget(newTarget!);
         setHitCount(0);
 
     }
 
     function startGame() {
         let topTarget = targetQueue.current.shift();
-        setCurrentTarget(topTarget);
+        setCurrentTarget(topTarget!);
     }
     function resetGame() {
         cleanup();
         startGame();
     }
     function cleanup() {
-        setCurrentTarget(null);
-        targetQueue.current = [...defaultTargets];
+        setCurrentTarget('');
+        targetQueue.current = [...defaultTargetIds];
         setRound(1);
         setHitCount(0);
         setDartsThrown(0);
@@ -144,7 +117,7 @@ function Accuracy1() {
     function manualHit() {
         // todo: we only really need the id here so adjust handleHit accordingly
         let segment: Segment = {
-            id: currentTarget?.id as string,
+            id: currentTarget as string,
             value: 0,
             multiplier: 0
         };
@@ -165,14 +138,17 @@ function Accuracy1() {
             cleanup();
         }
     },[]);
+
+
     return (
         <div className={styles.container}>
             <div className={styles.game}>
                 <button onClick={resetGame} className={styles.resetButton}>reset game</button>
                 <div className={styles.roundInfo}>
                     <p>Round: {round}</p>
+                    <p>currentTarget: {currentTarget}</p>
                     <p>hit: {hitCount} / 3</p>
-                    <p>currentTarget: {currentTarget?.id}</p>
+                    
                 </div>
                 <div className={styles.dartboardContainer}>
                     <Dartboard autoScore
@@ -219,15 +195,78 @@ function TallyBoard({tallies, includeBull = false}: TallyProps) {
     return (
         <>
             <ul>
-                <li>20: {tallies.s20}</li>
-                <li>19: {tallies.s19}</li>
-                <li>18: {tallies.s18}</li>
-                <li>17: {tallies.s17}</li>
-                <li>16: {tallies.s16}</li>
-                <li>15: {tallies.s15}</li>
-                <li>14: {tallies.s14}</li>
-                <li>13: {tallies.s13}</li>
-                {includeBull ? (<li>Bull: {tallies.sB} </li>) : null}
+                <li className={styles.tallyListItem}>
+                    <p>20:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s20).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>19:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s19).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>18:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s18).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>17:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s17).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>16:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s16).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>15:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s15).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>14:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s14).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                <li className={styles.tallyListItem}>
+                    <p>13:</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.s13).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>
+                {includeBull ? (<li className={styles.tallyListItem}>
+                    <p>Bull</p>
+                    <div className={styles.tallyMarks}>
+                        {new Array(tallies.sB).fill('').map((v, i) => {
+                            return (<div className={styles.tallyMark} key={`20: ${i}`}></div>)
+                        })}
+                    </div>
+                </li>) : null}
             </ul>
         </>
     )
