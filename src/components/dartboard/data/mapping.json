@@ -1,11 +1,11 @@
 [
     {
-      "id": "s1",
+      "id": "s1lrg",
       "value": 1,
       "multiplier": 1
     },
     {
-      "id": "s1",
+      "id": "s1sml",
       "value": 1,
       "multiplier": 1
     },
@@ -20,12 +20,12 @@
       "multiplier": 3
     },
     {
-      "id": "s2",
+      "id": "s2lrg",
       "value": 2,
       "multiplier": 1
     },
     {
-      "id": "s2",
+      "id": "s2sml",
       "value": 2,
       "multiplier": 1
     },
@@ -40,12 +40,12 @@
       "multiplier": 3
     },
     {
-      "id": "s3",
+      "id": "s3lrg",
       "value": 3,
       "multiplier": 1
     },
     {
-      "id": "s3",
+      "id": "s3sml",
       "value": 3,
       "multiplier": 1
     },
@@ -60,12 +60,12 @@
       "multiplier": 3
     },
     {
-      "id": "s4",
+      "id": "s4lrg",
       "value": 4,
       "multiplier": 1
     },
     {
-      "id": "s4",
+      "id": "s4sml",
       "value": 4,
       "multiplier": 1
     },
@@ -80,12 +80,12 @@
       "multiplier": 3
     },
     {
-      "id": "s5",
+      "id": "s5lrg",
       "value": 5,
       "multiplier": 1
     },
     {
-      "id": "s5",
+      "id": "s5sml",
       "value": 5,
       "multiplier": 1
     },
@@ -100,12 +100,12 @@
       "multiplier": 3
     },
     {
-      "id": "s6",
+      "id": "s6lrg",
       "value": 6,
       "multiplier": 1
     },
     {
-      "id": "s6",
+      "id": "s6sml",
       "value": 6,
       "multiplier": 1
     },
@@ -120,12 +120,12 @@
       "multiplier": 3
     },
     {
-      "id": "s7",
+      "id": "s7lrg",
       "value": 7,
       "multiplier": 1
     },
     {
-      "id": "s7",
+      "id": "s7sml",
       "value": 7,
       "multiplier": 1
     },
@@ -140,12 +140,12 @@
       "multiplier": 3
     },
     {
-      "id": "s8",
+      "id": "s8lrg",
       "value": 8,
       "multiplier": 1
     },
     {
-      "id": "s8",
+      "id": "s8sml",
       "value": 8,
       "multiplier": 1
     },
@@ -160,12 +160,12 @@
       "multiplier": 3
     },
     {
-      "id": "s9",
+      "id": "s9lrg",
       "value": 9,
       "multiplier": 1
     },
     {
-      "id": "s9",
+      "id": "s9sml",
       "value": 9,
       "multiplier": 1
     },
@@ -180,12 +180,12 @@
       "multiplier": 3
     },
     {
-      "id": "s10",
+      "id": "s10lrg",
       "value": 10,
       "multiplier": 1
     },
     {
-      "id": "s10",
+      "id": "s10sml",
       "value": 10,
       "multiplier": 1
     },
@@ -200,12 +200,12 @@
       "multiplier": 3
     },
     {
-      "id": "s11",
+      "id": "s11lrg",
       "value": 11,
       "multiplier": 1
     },
     {
-      "id": "s11",
+      "id": "s11sml",
       "value": 11,
       "multiplier": 1
     },
@@ -220,12 +220,12 @@
       "multiplier": 3
     },
     {
-      "id": "s12",
+      "id": "s12lrg",
       "value": 12,
       "multiplier": 1
     },
     {
-      "id": "s12",
+      "id": "s12sml",
       "value": 12,
       "multiplier": 1
     },
@@ -240,12 +240,12 @@
       "multiplier": 3
     },
     {
-      "id": "s13",
+      "id": "s13lrg",
       "value": 13,
       "multiplier": 1
     },
     {
-      "id": "s13",
+      "id": "s13sml",
       "value": 13,
       "multiplier": 1
     },
@@ -260,12 +260,12 @@
       "multiplier": 3
     },
     {
-      "id": "s14",
+      "id": "s14lrg",
       "value": 14,
       "multiplier": 1
     },
     {
-      "id": "s14",
+      "id": "s14sml",
       "value": 14,
       "multiplier": 1
     },
@@ -280,12 +280,12 @@
       "multiplier": 3
     },
     {
-      "id": "s15",
+      "id": "s15lrg",
       "value": 15,
       "multiplier": 1
     },
     {
-      "id": "s15",
+      "id": "s15sml",
       "value": 15,
       "multiplier": 1
     },
@@ -300,12 +300,12 @@
       "multiplier": 3
     },
     {
-      "id": "s16",
+      "id": "s16lrg",
       "value": 16,
       "multiplier": 1
     },
     {
-      "id": "s16",
+      "id": "s16sml",
       "value": 16,
       "multiplier": 1
     },
@@ -320,12 +320,12 @@
       "multiplier": 3
     },
     {
-      "id": "s17",
+      "id": "s17lrg",
       "value": 17,
       "multiplier": 1
     },
     {
-      "id": "s17",
+      "id": "s17sml",
       "value": 17,
       "multiplier": 1
     },
@@ -340,12 +340,12 @@
       "multiplier": 3
     },
     {
-      "id": "s18",
+      "id": "s18lrg",
       "value": 18,
       "multiplier": 1
     },
     {
-      "id": "s18",
+      "id": "s18sml",
       "value": 18,
       "multiplier": 1
     },
@@ -360,12 +360,12 @@
       "multiplier": 3
     },
     {
-      "id": "s19",
+      "id": "s19lrg",
       "value": 19,
       "multiplier": 1
     },
     {
-      "id": "s19",
+      "id": "s19sml",
       "value": 19,
       "multiplier": 1
     },
@@ -380,12 +380,12 @@
       "multiplier": 3
     },
     {
-      "id": "s20",
+      "id": "s20lrg",
       "value": 20,
       "multiplier": 1
     },
     {
-      "id": "s20",
+      "id": "s20sml",
       "value": 20,
       "multiplier": 1
     },

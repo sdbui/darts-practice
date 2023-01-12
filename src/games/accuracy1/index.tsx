@@ -8,18 +8,18 @@ interface Tally {
 }
 
 const defaultTargetIds: string[] = [
-    's20', 's19', 's18', 's17', 's16', 's15', 's14', 's13', 'sB'
+    's20lrg', 's19lrg', 's18lrg', 's17lrg', 's16lrg', 's15lrg', 's14lrg', 's13lrg', 'sB'
 ];
 
 const defaultTallies: {[key: string]: number} = {
-    s20: 0,
-    s19: 0,
-    s18: 0,
-    s17: 0,
-    s16: 0,
-    s15: 0,
-    s14: 0,
-    s13: 0,
+    s20lrg: 0,
+    s19lrg: 0,
+    s18lrg: 0,
+    s17lrg: 0,
+    s16lrg: 0,
+    s15lrg: 0,
+    s14lrg: 0,
+    s13lrg: 0,
     sB: 0,
 }
 
@@ -55,7 +55,6 @@ function Accuracy1() {
         // seperate case for bull since double and single are the same
         let hitId = segment.id;
         if (hitId === 'dB') hitId = 'sB'; // targets and tallies both use sB 
-        console.log('currentTarget in handleHit:', currentTargetRef?.current)
         if (hitId === currentTargetRef.current) {
             setHitCount((prev) => prev + 1);
         }
@@ -74,7 +73,6 @@ function Accuracy1() {
 
             // talies wont be updated until next render... so if the current tallies is 4, that means it will be 5 next render.
             // therefore, don't add back to the targetQueue
-            console.log('currentTarget in nextRound:', currentTargetRef.current)
             if (talliesRef.current[currentTargetRef.current] < 4) {
                 targetQueue.current.push(currentTarget);
             }
@@ -197,71 +195,71 @@ function TallyBoard({tallies, includeBull = false}: TallyProps) {
     return (
         <>
             <ul className={styles.tallyList}>
-                <li className={`${styles.tallyListItem} ${tallies.s20 === 5 ? styles.complete : null}`}>
+                <li className={`${styles.tallyListItem} ${tallies.s20lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>20</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s20).fill('').map((v, i) => {
+                        {new Array(tallies.s20lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`20:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s19lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>19</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s19).fill('').map((v, i) => {
+                        {new Array(tallies.s19lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`19:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s18lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>18</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s18).fill('').map((v, i) => {
+                        {new Array(tallies.s18lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`18:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s17lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>17</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s17).fill('').map((v, i) => {
+                        {new Array(tallies.s17lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`17:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s16lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>16</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s16).fill('').map((v, i) => {
+                        {new Array(tallies.s16lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`16:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s15lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>15</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s15).fill('').map((v, i) => {
+                        {new Array(tallies.s15lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`15:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s14lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>14</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s14).fill('').map((v, i) => {
+                        {new Array(tallies.s14lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`14:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                <li className={styles.tallyListItem}>
+                <li className={`${styles.tallyListItem} ${tallies.s13lrg === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>13</div>
                     <div className={styles.tallyMarks}>
-                        {new Array(tallies.s13).fill('').map((v, i) => {
+                        {new Array(tallies.s13lrg).fill('').map((v, i) => {
                             return (<div className={styles.tallyMark} key={`13:${i}`}></div>)
                         })}
                     </div>
                 </li>
-                {includeBull ? (<li className={styles.tallyListItem}>
+                {includeBull ? (<li className={`${styles.tallyListItem} ${tallies.sB === 5 ? styles.complete : null}`}>
                     <div className={styles.tallyTarget}>B</div>
                     <div className={styles.tallyMarks}>
                         {new Array(tallies.sB).fill('').map((v, i) => {
