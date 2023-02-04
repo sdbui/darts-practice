@@ -265,7 +265,7 @@ export type {
 /**
  * used this to calibrate the granboard... maybe can add a calibration step if user needs it?
  * 
-        let ids = ['sB', 'dB', 's20','s19','s18','s17','s16','s15','s14','s13','s12','s11','s10','s9','s8','s7','s6','s5','s4','s3','s2','s1','d20','d19','d18','d17','d16','d15','d14','d13','d12','d11','d10','d9','d8','d7','d6','d5','d4','d3','d2','d1','t20','t19','t18','t17','t16','t15','t14','t13','t12','t11','t10','t9','t8','t7','t6','t5','t4','t3','t2','t1']
+        let ids = ['sB', 'dB', 's20lrg','s19lrg','s18lrg','s17lrg','s16lrg','s15lrg','s14lrg','s13lrg','s12lrg','s11lrg','s10lrg','s9lrg','s8lrg','s7lrg','s6lrg','s5lrg','s4lrg','s3lrg','s2lrg','s1lrg','d20','d19','d18','d17','d16','d15','d14','d13','d12','d11','d10','d9','d8','d7','d6','d5','d4','d3','d2','d1','t20','t19','t18','t17','t16','t15','t14','t13','t12','t11','t10','t9','t8','t7','t6','t5','t4','t3','t2','t1', 's20sml','s19sml','s18sml','s17sml','s16sml','s15sml','s14sml','s13sml','s12sml','s11sml','s10sml','s9sml','s8sml','s7sml','s6sml','s5sml','s4sml','s3sml','s2sml','s1sml']
         let calibration = {};
         while (ids.length) {
             let top = ids.pop();

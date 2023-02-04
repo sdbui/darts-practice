@@ -84,7 +84,7 @@ function Accuracy1() {
             // talies wont be updated until next render... so if the current tallies is 4, that means it will be 5 next render.
             // therefore, don't add back to the targetQueue
             if (talliesRef.current[currentTargetRef.current] < 4) {
-                targetQueue.current.push(currentTarget);
+                targetQueue.current.push(currentTargetRef.current);
             }
             // check for completion
             if (!targetQueue.current.length) {
