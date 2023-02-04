@@ -256,7 +256,7 @@ function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{} }: {
 }
 
 export default Dartboard;
-
+export { mappings };
 export type {
     Segment,
 }

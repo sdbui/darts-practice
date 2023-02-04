@@ -34,6 +34,23 @@
     justify-content: center;
 }
 
+.roundInfo .currentTarget {
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border: 2px solid red;
+    border-radius: 10%;
+    background: #ddd;
+    margin: 1rem 0
+}
+.roundInfo .round {
+    margin: 1rem 0;
+    color: #ddd;
+}
+
 .roundActions {
     display: flex;
     flex-wrap: wrap;
@@ -78,6 +95,11 @@
 .tallyList {
     padding: 0;
     min-width: 200px;
+    background: #176217;
+    padding: 1rem;
+    border-image: linear-gradient(#654403, #584724, #3f3522) 100;
+    border-width: 1rem;
+    border-style: solid;
 }
 
 .tallyListItem {
@@ -95,7 +117,7 @@
     opacity: 0.2;
     &:before {
         content: ' ';
-        border-bottom: 4px solid black;
+        border-bottom: 4px solid rgb(245,249,173);
         position: absolute;
         top: 50%;
         left: 0;
@@ -105,10 +127,11 @@
 }
 
 .tallyTarget {
+    color: rgb(245,249,173);
     font-size: 3rem;
     font-weight: 600;
-    min-width: 60px;
-    border-right: 1px solid black;
+    min-width: 65px;
+    border-right: 5px solid black;
     margin-right: 10px;
 }
 .tallyMarks {
@@ -117,7 +140,7 @@
 .tallyMark {
     width: 8px;
     height: 40px;
-    background: black;
+    background: rgb(245,249,173);
     margin-right: 5px;
     &:nth-child(5) {
         position: absolute;

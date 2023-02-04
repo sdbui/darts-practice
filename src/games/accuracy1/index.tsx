@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import Dartboard, { Segment } from "../../components/dartboard";
+import Dartboard, { 
+    Segment,
+    mappings as Mapping,
+} from "../../components/dartboard";
 import styles from './styles.module.scss';
 
 
@@ -32,6 +35,7 @@ function Accuracy1() {
     const [round, setRound] = useState<number>(1);
     const [dartsThrown, setDartsThrown] = useState<number>(0);
     const [hitCount, setHitCount] = useState<number>(0);
+    const [currentTargetText, setCurrentTargetText] = useState<string | number>('');
 
 
     // hacky fix for callbacks in Dartboard component being called with original states always
@@ -41,11 +45,17 @@ function Accuracy1() {
     let hitCountRef = useRef(hitCount);
     let talliesRef = useRef(tallies)
     useEffect(()=> {
-        currentTargetRef.current = currentTarget;
         dartsThrownRef.current = dartsThrown;
         hitCountRef.current = hitCount;
         talliesRef.current = tallies;
-    },[currentTarget, dartsThrown, hitCount])
+    },[dartsThrown, hitCount, tallies])
+
+    useEffect(() => {
+        currentTargetRef.current = currentTarget;
+        let segment = Mapping.find(segment => segment.id === currentTarget);
+        let targetText = segment?.id === 'sB' ? 'B' : segment?.value;
+        setCurrentTargetText(targetText);
+    }, [currentTarget])
 
     function handleHit(segment: Segment) {
         // do nothing if already thrown 3 darts in this round
@@ -145,9 +155,8 @@ function Accuracy1() {
             <div className={styles.game}>
                 <button onClick={resetGame} className={styles.resetButton}>reset game</button>
                 <div className={styles.roundInfo}>
-                    <p>Round: {round}</p>
-                    <p>currentTarget: {currentTarget}</p>
-                    <p>hit: {hitCount} / 3</p>
+                    <p className={styles.round}>Round: {round}</p>
+                    <p className={styles.currentTarget}>{currentTargetText}</p>
                     
                 </div>
                 <div className={styles.dartboardContainer}>
