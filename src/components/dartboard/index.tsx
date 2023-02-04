@@ -2,6 +2,8 @@ import dartboardSVG from './imgs/dartboard.svg';
 import styles from './styles.module.scss';
 import mappings from './data/mapping.json';
 import granboardMap from './data/granboard.json';
+import BluetoothIcon from '@mui/icons-material/Bluetooth';
+import { useState } from 'react';
 
 type Segment = {
     id: string;
@@ -15,6 +17,8 @@ function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{} }: {
     autoScore?: boolean,
     onSkip?: ()=>void
 }) {
+
+    const [connected, setConnected] = useState(false);
 
     function handleClick(e: any) {
         let id = e.target.id;
@@ -53,14 +57,17 @@ function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{} }: {
             let segment = mappings.find(seg => seg.id === granboardMap[val]);
             onHit?.(segment as Segment);
         }
-
-
+        setConnected(true);
     }
 
     return (
         <div className={styles.container}>  
             {autoScore ? (
-                <button onClick={connectBT} className={styles.autoScoreBtn}>connect bt</button>
+                <button onClick={connectBT} className={`${styles.autoScoreBtn} ${connected ? styles.connected : null}`}>
+                {/* <button onClick={connectBT} className={styles.autoScoreBtn}> */}
+                    <BluetoothIcon 
+                        fontSize='inherit'/>
+                </button>
             ) : null}
             <svg id="svg2" viewBox="-250 -250 500 500" version="1.0">
             <defs id="defs6">

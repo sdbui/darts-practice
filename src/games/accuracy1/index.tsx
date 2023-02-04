@@ -5,7 +5,6 @@ import Dartboard, {
 } from "../../components/dartboard";
 import styles from './styles.module.scss';
 
-
 interface Tally {
     id: number;
 }
@@ -27,7 +26,6 @@ const defaultTallies: {[key: string]: number} = {
 }
 
 function Accuracy1() {
-    // let targetQueue = useRef([...defaultTargets]);
     let targetQueue = useRef([...defaultTargetIds]);
     let [tallies, setTallies] = useState(defaultTallies)
     const [gameOver, setGameOver] = useState(false)
