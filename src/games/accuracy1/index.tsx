@@ -4,14 +4,28 @@ import Dartboard, {
     mappings as Mapping,
 } from "../../components/dartboard";
 import styles from './styles.module.scss';
+import Dart from '../../components/dart';
 
 interface Tally {
     id: number;
 }
 
+enum ThrowType {
+    Hit = 'hit',
+    Miss = 'miss',
+}
+
+interface ThrowStatus {
+    [num: number]: ThrowType | null
+    1: ThrowType | null;
+    2: ThrowType | null;
+    3: ThrowType | null;
+}
+
 const defaultTargetIds: string[] = [
     's20lrg', 's19lrg', 's18lrg', 's17lrg', 's16lrg', 's15lrg', 's14lrg', 's13lrg', 'sB'
 ];
+const defaultThrowStatus: ThrowStatus = {1: null, 2: null, 3: null};
 
 const defaultTallies: {[key: string]: number} = {
     s20lrg: 0,
@@ -34,6 +48,7 @@ function Accuracy1() {
     const [dartsThrown, setDartsThrown] = useState<number>(0);
     const [hitCount, setHitCount] = useState<number>(0);
     const [currentTargetText, setCurrentTargetText] = useState<string | number>('');
+    const [throwStatus, setThrowStatus] = useState<ThrowStatus>(defaultThrowStatus);
 
 
     // hacky fix for callbacks in Dartboard component being called with original states always
@@ -63,8 +78,22 @@ function Accuracy1() {
         // seperate case for bull since double and single are the same
         let hitId = segment.id;
         if (hitId === 'dB') hitId = 'sB'; // targets and tallies both use sB 
+        let throwNumber = dartsThrownRef.current + 1; // plus 1 because the state didnt update yet...
         if (hitId === currentTargetRef.current) {
+            // its a hit
             setHitCount((prev) => prev + 1);
+            setThrowStatus(prevThrowStatus => {
+                let newStatus = {...prevThrowStatus};
+                newStatus[throwNumber] = ThrowType.Hit;
+                return newStatus;
+            });
+        } else {
+            // its a miss
+            setThrowStatus(prevThrowStatus => {
+                let newStatus = {...prevThrowStatus};
+                newStatus[throwNumber] = ThrowType.Miss;
+                return newStatus;
+            });
         }
     }
     function addTallyMark(targetId: string) {
@@ -101,6 +130,7 @@ function Accuracy1() {
         let newTarget = targetQueue.current.shift();
         setCurrentTarget(newTarget!);
         setHitCount(0);
+        setThrowStatus(defaultThrowStatus);
 
     }
 
@@ -162,8 +192,16 @@ function Accuracy1() {
                         onHit={handleHit}
                         onSkip={nextRound}></Dartboard>
                 </div>
-                <div>
-                    darts thrown: {dartsThrown}
+                <div className={styles.dartsThrown}>
+                    <div className={throwStatus[1] ? `${styles.throwStatus} ` + styles[throwStatus[1]]: styles.throwStatus}>
+                        <Dart/>
+                    </div>
+                    <div className={throwStatus[2] ? `${styles.throwStatus} ` + styles[throwStatus[2]]: styles.throwStatus}>
+                        <Dart/>
+                    </div>
+                    <div className={throwStatus[3] ? `${styles.throwStatus} ` + styles[throwStatus[3]]: styles.throwStatus}>
+                        <Dart/>
+                    </div>
                 </div>
                 <div className={styles.roundActions}>
                     <button onClick={manualHit}>HIT</button>

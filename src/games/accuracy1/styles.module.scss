@@ -149,3 +149,26 @@
         transform-origin: 1px 3px;
     }
 }
+
+.dartsThrown {
+    width: 100%;
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
+}
+
+.throwStatus {
+    width: 100px;
+    svg {
+        fill: #ddd;
+    }
+
+    &.hit svg {
+        fill: rgb(100, 250, 100);
+    }
+    &.miss svg {
+        fill: rgb(247, 61, 61)
+    }
+}
