@@ -21,3 +21,14 @@
         
     }
 }
+
+.pulse {
+    animation: 0.5s infinite alternate pulse;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse {
+    to {
+        fill: yellow;
+    }
+}

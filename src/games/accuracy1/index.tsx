@@ -5,6 +5,7 @@ import Dartboard, {
 } from "../../components/dartboard";
 import styles from './styles.module.scss';
 import Dart from '../../components/dart';
+import RestartAlt from "@mui/icons-material/RestartAlt";
 
 interface Tally {
     id: number;
@@ -49,6 +50,7 @@ function Accuracy1() {
     const [hitCount, setHitCount] = useState<number>(0);
     const [currentTargetText, setCurrentTargetText] = useState<string | number>('');
     const [throwStatus, setThrowStatus] = useState<ThrowStatus>(defaultThrowStatus);
+    const [highlight, setHighlight] = useState('');
 
 
     // hacky fix for callbacks in Dartboard component being called with original states always
@@ -68,6 +70,7 @@ function Accuracy1() {
         let segment = Mapping.find(segment => segment.id === currentTarget);
         let targetText = segment?.id === 'sB' ? 'B' : segment?.value;
         setCurrentTargetText(targetText);
+        setHighlight(currentTarget);
     }, [currentTarget])
 
     function handleHit(segment: Segment) {
@@ -181,7 +184,9 @@ function Accuracy1() {
     return (
         <div className={styles.container}>
             <div className={styles.game}>
-                <button onClick={resetGame} className={styles.resetButton}>reset game</button>
+                <button onClick={resetGame} className={styles.resetButton}>
+                    <RestartAlt fontSize="inherit"/>
+                </button>
                 <div className={styles.roundInfo}>
                     <p className={styles.round}>Round: {round}</p>
                     <p className={styles.currentTarget}>{currentTargetText}</p>
@@ -190,7 +195,8 @@ function Accuracy1() {
                 <div className={styles.dartboardContainer}>
                     <Dartboard autoScore
                         onHit={handleHit}
-                        onSkip={nextRound}></Dartboard>
+                        onSkip={nextRound}
+                        highlight={highlight}></Dartboard>
                 </div>
                 <div className={styles.dartsThrown}>
                     <div className={throwStatus[1] ? `${styles.throwStatus} ` + styles[throwStatus[1]]: styles.throwStatus}>
@@ -207,7 +213,7 @@ function Accuracy1() {
                     <button onClick={manualHit}>HIT</button>
                     <button onClick={manualMiss}>MISS</button>
                     <button disabled className={styles.undoBtn}>UNDO</button>
-                    <button onClick={nextRound} className={styles.nextRoundBtn}>next</button>
+                    <button onClick={nextRound} className={styles.nextRoundBtn}>NEXT</button>
                 </div>
             </div>
             <TallyBoard includeBull tallies={tallies}></TallyBoard>

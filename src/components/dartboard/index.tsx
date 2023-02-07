@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import mappings from './data/mapping.json';
 import granboardMap from './data/granboard.json';
 import BluetoothIcon from '@mui/icons-material/Bluetooth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Segment = {
     id: string;
@@ -12,13 +12,27 @@ type Segment = {
 };
 
 
-function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{} }: {
+function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{}, highlight = null }: {
     onHit?: (e: Segment)=>void,
     autoScore?: boolean,
-    onSkip?: ()=>void
+    onSkip?: ()=>void,
+    highlight?: string | null,
 }) {
-
     const [connected, setConnected] = useState(false);
+
+    const [myHighlight, setMyHighlight] = useState(null);
+
+    useEffect(() => {
+        // remove all pulse classes if any
+        let prevPulses = document.querySelectorAll(`.${styles.pulse}`);
+        for (let node of prevPulses) {
+            node.classList.remove(styles.pulse)
+        }
+        if (!highlight) return;
+        let targetSegment = document.querySelector(`#${highlight}`);
+        targetSegment?.classList.add(styles.pulse);
+        // add 'pulse' class to target segment
+    }, [highlight]);
 
     function handleClick(e: any) {
         let id = e.target.id;
@@ -82,7 +96,7 @@ function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{} }: {
                 <circle id="circle16" cy="0" cx="0" r="226"/>
                 <g id="dartboard" onClick={handleClick}>
                 <g id="g20">
-                    <use id="d20" href="#double" height="500" width="500" y="0" x="0" fill="#ff0000"/>
+                    <use id="d20" href="#double" height="500" width="500" y="0" x="0" fill="#ff0000" />
                     <use id="s20lrg" href="#outer" height="500" width="500" y="0" x="0" fill="#000000"/>
                     <use id="t20" href="#triple" height="500" width="500" y="0" x="0" fill="#ff0000"/>
                     <use id="s20sml" href="#inner" height="500" width="500" y="0" x="0" fill="#000000"/>
