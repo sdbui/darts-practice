@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-mock": "cd src/data && ts-node generateMock.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
