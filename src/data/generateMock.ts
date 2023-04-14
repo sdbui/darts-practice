@@ -1,25 +1,11 @@
 import { faker } from '@faker-js/faker';
 import fs from 'fs';
+import {
+    Accuracy,
+    GameResult
+} from '../common/types';
 
 const MOCK_PATH = './mockResults.json';
-
-interface Accuracy {
-    overall: number;
-    20: number;
-    19: number;
-    18: number;
-    17: number;
-    16: number;
-    15: number;
-    14: number;
-    13: number;
-    B: number
-}
-
-interface GameResult {
-    rounds: number;
-    accuracy: Accuracy;
-}
 
 function createRandomGameResult(): GameResult {
     let result = {} as GameResult;
@@ -29,7 +15,7 @@ function createRandomGameResult(): GameResult {
     });
 
 
-    let targets = [10,19,18,17,16,15,14,13,'B'];
+    let targets = [20,19,18,17,16,15,14,13,'B'];
     result.accuracy = {} as Accuracy;
     let sum = 0;
     for (let target of targets) {
