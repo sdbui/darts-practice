@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 import Accuracy1 from './games/accuracy1';
 import Home from './views/home';
-import Stats from './views/stats'
+import Stats, { statsLoader } from './views/stats'
 
 const router = createBrowserRouter([
     {
@@ -16,7 +16,8 @@ const router = createBrowserRouter([
     },
     {
         path: '/stats',
-        element: <Stats/>
+        element: <Stats/>,
+        loader: statsLoader,
     }
 ]); 
 

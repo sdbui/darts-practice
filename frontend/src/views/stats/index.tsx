@@ -1,7 +1,6 @@
 import {
     useNavigate
 } from 'react-router-dom';
-import mockData from '../../data/mockResults.json';
 import { ResponsiveLine } from '@nivo/line';
 import {
     Accuracy,
@@ -12,13 +11,18 @@ import styles from './styles.module.scss';
 import {
     line
 } from 'd3-shape';
+// @ts-ignore
 import {
     regressionLinear
 } from 'd3-regression';
 
+import StatsService from './stats-service';
+import { useLoaderData } from 'react-router-dom';
+
 function Stats() {
+    const { results } = useLoaderData() as any;
     const navigate = useNavigate();
-    let data: GameResult[] = mockData;
+    let data: GameResult[] = results;
 
     const Line = ({ data }: {data: GameResult[]}) => {
         // format data for nivo
@@ -31,10 +35,10 @@ function Stats() {
         })
 
         // add some regression line data to this chart
-        const RegressionLine = ({ xScale, yScale, points}) => {
+        const RegressionLine = ({ xScale, yScale, points}: {xScale: any, yScale: any, points: any}) => {
             let linearRegressionGenerator = regressionLinear()
-                .x(d => d.x)
-                .y(d => d.y)
+                .x((d: any) => d.x)
+                .y((d: any) => d.y)
             let regression = linearRegressionGenerator(points);
             const lineGenerator = line()
                 .x(d => d[0])
@@ -48,7 +52,7 @@ function Stats() {
            let lineColor = regression.a > 0 ? 'green' : 'red';
             return (
                 <path
-                    d={lineGenerator(regression)}
+                    d={lineGenerator(regression) as any}
                     fill="none"
                     stroke={lineColor}
                     strokeWidth="3"
@@ -87,11 +91,6 @@ function Stats() {
                 lineWidth={2}
                 theme={nivoTheme}
                 axisBottom={null}
-                sliceTooltip={({point}) => {
-                    return (
-                        <text>hello there man</text>
-                    )
-                }}
             ></ResponsiveLine>
         )
     }
@@ -109,4 +108,14 @@ function Stats() {
     )
 }
 
+const statsLoader = async () => {
+    let results = await StatsService.getLatestResults();
+    return {
+        results
+    }
+}
+
+export {
+    statsLoader
+}
 export default Stats
