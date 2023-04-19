@@ -6,12 +6,14 @@ dotenv.config();
 import db from './db/conn.mjs'
 import cors from 'cors'
 app.use(cors());
+import bodyParser from 'body-parser';
 
+app.use(bodyParser.json());
 
 app.get('/api/results', async (req, res, next) => {
     try {
         // get all the stats
-        const collection = await db.collection('mockResults'); // TODO: Use results db instead once it is populated enough
+        const collection = await db.collection('results');
         let result = await collection.find({})
             .limit(30)
             .toArray()
@@ -21,6 +23,20 @@ app.get('/api/results', async (req, res, next) => {
         res.status(400).send('uh OH!')
     }
 });
+
+app.post('/api/results', async (req, res, next) => {
+    let { rounds, accuracy } = req.body;
+    try {
+        const collection = await db.collection('results');
+        let response = await collection.insertOne({
+            rounds,
+            accuracy
+        });
+        res.status(200).json('ok!');
+    } catch (e) {
+        res.status(400).send('something wrong with post')
+    }
+})
 
 
 const server = http.createServer(app);
