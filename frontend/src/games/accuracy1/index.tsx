@@ -6,6 +6,7 @@ import Dartboard, {
 import styles from './styles.module.scss';
 import Dart from '../../components/dart';
 import RestartAlt from "@mui/icons-material/RestartAlt";
+import StatsService from '../../views/stats/stats-service';
 
 interface Tally {
     id: number;
@@ -118,7 +119,14 @@ function Accuracy1() {
             }
             // check for completion
             if (!targetQueue.current.length) {
-                console.log('COMPLETE!')
+                console.log('COMPLETE!');
+
+                // save game results to server here??
+                // TODO: Add accuracy as well
+                StatsService.addResult({
+                    rounds: round
+                });
+
                 setGameOver(true);
                 return;
             }
