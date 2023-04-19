@@ -1,0 +1,38 @@
+{
+  "name": "darts-practice",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "generate-mock": "cd src/data && ts-node generateMock.ts"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.7",
+    "@nivo/core": "^0.80.0",
+    "@nivo/line": "0.80.0",
+    "@nivo/scatterplot": "^0.80.0",
+    "d3-regression": "^1.3.10",
+    "d3-shape": "^3.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0",
+    "react-usestateref": "^1.0.8"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@types/d3-shape": "^3.1.1",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "sass": "^1.57.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
+  }
+}
