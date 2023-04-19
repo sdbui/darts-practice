@@ -160,7 +160,8 @@ function Accuracy1() {
         setHitCount(0);
         setDartsThrown(0);
         setGameOver(false);
-        setTallies(defaultTallies)
+        setTallies(defaultTallies);
+        setThrowStatus(defaultThrowStatus);
     }
 
     function manualHit() {
