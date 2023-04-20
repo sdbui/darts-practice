@@ -59,12 +59,14 @@ function Accuracy1() {
     let currentTargetRef = useRef(currentTarget);
     let dartsThrownRef = useRef(dartsThrown);
     let hitCountRef = useRef(hitCount);
-    let talliesRef = useRef(tallies)
+    let talliesRef = useRef(tallies);
+    let roundRef = useRef(round);
     useEffect(()=> {
         dartsThrownRef.current = dartsThrown;
         hitCountRef.current = hitCount;
         talliesRef.current = tallies;
-    },[dartsThrown, hitCount, tallies])
+        roundRef.current = round;
+    },[dartsThrown, hitCount, tallies, round])
 
     useEffect(() => {
         currentTargetRef.current = currentTarget;
@@ -124,7 +126,7 @@ function Accuracy1() {
                 // save game results to server here??
                 // TODO: Add accuracy as well
                 StatsService.addResult({
-                    rounds: round
+                    rounds: roundRef.current
                 });
 
                 setGameOver(true);
