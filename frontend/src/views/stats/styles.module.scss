@@ -1,4 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav {
+    display: inline-flex;
+    div {
+        padding: 10px;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #ddd;
+        &:hover {
+            color: rgb(139, 222, 239);
+        }
+    }
+}
+
 .test {
     height: 50vh;
     width: 75vw;
+}
+
+.title {
+    color: #ddd;
+    font-size: 2.5rem;
 }

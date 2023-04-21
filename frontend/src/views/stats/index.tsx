@@ -11,10 +11,11 @@ import styles from './styles.module.scss';
 import {
     line
 } from 'd3-shape';
-// @ts-ignore
 import {
     regressionLinear
 } from 'd3-regression';
+import Home from '@mui/icons-material/Home';
+import VideogameAssetOutlined from '@mui/icons-material/VideogameAssetOutlined';
 
 import StatsService from './stats-service';
 import { useLoaderData } from 'react-router-dom';
@@ -97,10 +98,20 @@ function Stats() {
     const goHome = () => {
         navigate('/');
     }
+    const goPractice = () => {
+        navigate('/accuracy1')
+    }
     return (
-        <div>
-            <button onClick={goHome}>Home</button>
-            <h1>Last 30 games of A1</h1>
+        <div className={styles.container}>
+            <div className={styles.nav}>
+                <div onClick={goHome}>
+                    <Home fontSize="inherit"/>
+                </div>
+                <div onClick={goPractice}>
+                    <VideogameAssetOutlined fontSize="inherit"/>
+                </div>
+            </div>
+            <p className={styles.title}>Latest results of A1</p>
             <div className={styles.test}>
                 <Line data={data}></Line>
             </div>
