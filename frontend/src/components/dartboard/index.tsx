@@ -77,11 +77,11 @@ function Dartboard ({ onHit, autoScore = false, onSkip = ()=>{}, highlight = nul
     return (
         <div className={styles.container}>  
             {autoScore ? (
-                <button onClick={connectBT} className={`${styles.autoScoreBtn} ${connected ? styles.connected : null}`}>
+                <div onClick={connectBT} className={`${styles.autoScoreBtn} ${connected ? styles.connected : null}`}>
                 {/* <button onClick={connectBT} className={styles.autoScoreBtn}> */}
                     <BluetoothIcon 
                         fontSize='inherit'/>
-                </button>
+                </div>
             ) : null}
             <svg id="svg2" viewBox="-250 -250 500 500" version="1.0">
             <defs id="defs6">

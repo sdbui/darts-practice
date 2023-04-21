@@ -1,0 +1,27 @@
+button {
+    background: #ddd6c3;
+    color: #2C3639;
+    // border: 1px solid #A27B5C;
+    border: 2px solid #A27B5C;
+
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    min-height: 30px;
+    padding: 10px;
+
+    &:hover {
+        cursor:pointer;
+        background: #cab069;
+        // border: 3px solid #A27B5C;
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    &:active {
+        background: #c1a454;
+        box-shadow: 0 0 2px 3px inset #A27B5C;
+    }
+}

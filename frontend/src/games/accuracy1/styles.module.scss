@@ -15,12 +15,27 @@
     flex-basis: 40%;
 }
 
+.gameActions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+
+    .action {
+        font-size: 2rem;
+        cursor: pointer;
+        color: #ddd;
+        &:hover {
+            color: rgb(139, 222, 239);
+        }
+        margin: 0 5px;
+    }
+}
+
 .resetButton {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: transparent;
-    border: none;
     font-size: 2rem;
     cursor: pointer;
     color: #ddd;
@@ -66,12 +81,16 @@
     justify-content: space-between;
     button {
         flex: 2;
-        cursor: pointer;
         height: 2.5rem;
+    }
+    .missBtn {
+        border-left: none;
+        border-right: none;
     }
     .nextRoundBtn {
         flex: 3;
         flex-basis: 100%;
+        border-top: none;
     }
     .undoBtn {
         flex: 1;
@@ -97,7 +116,32 @@
     height: 50vh;
     width: 50vw;
     text-align: center;
-    background: #fff;
+    background: #ddd;
+    display: flex;
+    flex-direction: column;
+    color: #3F4E4F;
+    border-radius: 10px;
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    section {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        width: 50%;
+        align-self: center;
+        margin-bottom: 15px;
+    }
 }
 
 .tallyList {

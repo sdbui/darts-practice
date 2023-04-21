@@ -6,7 +6,10 @@ import Dartboard, {
 import styles from './styles.module.scss';
 import Dart from '../../components/dart';
 import RestartAlt from "@mui/icons-material/RestartAlt";
+import Home from '@mui/icons-material/Home';
+import Insights from '@mui/icons-material/Insights';
 import StatsService from '../../views/stats/stats-service';
+import { useNavigate } from 'react-router-dom';
 
 interface Tally {
     id: number;
@@ -42,9 +45,10 @@ const defaultTallies: {[key: string]: number} = {
 }
 
 function Accuracy1() {
+    const navigate = useNavigate();
     let targetQueue = useRef([...defaultTargetIds]);
     let [tallies, setTallies] = useState(defaultTallies)
-    const [gameOver, setGameOver] = useState(false)
+    const [gameOver, setGameOver] = useState(true)
     const [currentTarget, setCurrentTarget] = useState<string>('');
     const [round, setRound] = useState<number>(1);
     const [dartsThrown, setDartsThrown] = useState<number>(0);
@@ -191,13 +195,27 @@ function Accuracy1() {
         }
     },[]);
 
+    function goHome() {
+        navigate('/');
+    }
+    function goStats() {
+        navigate('/stats');
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.game}>
-                <button onClick={resetGame} className={styles.resetButton}>
-                    <RestartAlt fontSize="inherit"/>
-                </button>
+                <div className={styles.gameActions}>
+                    <div onClick={resetGame} className={styles.action}>
+                        <RestartAlt fontSize="inherit"/>
+                    </div>
+                    <div onClick={goHome} className={styles.action}>
+                        <Home fontSize="inherit"/>
+                    </div>
+                    <div onClick={goStats} className={styles.action}>
+                        <Insights fontSize="inherit"/>
+                    </div>
+                </div>
                 <div className={styles.roundInfo}>
                     <p className={styles.round}>Round: {round}</p>
                     <p className={styles.currentTarget}>{currentTargetText}</p>
@@ -222,13 +240,13 @@ function Accuracy1() {
                 </div>
                 <div className={styles.roundActions}>
                     <button onClick={manualHit}>HIT</button>
-                    <button onClick={manualMiss}>MISS</button>
+                    <button onClick={manualMiss} className={styles.missBtn}>MISS</button>
                     <button disabled className={styles.undoBtn}>UNDO</button>
                     <button onClick={nextRound} className={styles.nextRoundBtn}>NEXT</button>
                 </div>
             </div>
             <TallyBoard includeBull tallies={tallies}></TallyBoard>
-            {gameOver ? <CompletedOverlay onReset={() => {
+            {gameOver ? <CompletedOverlay rounds={roundRef.current}onReset={() => {
                 resetGame();
             }} /> : null}
         </div>
@@ -236,13 +254,18 @@ function Accuracy1() {
 
 }
 
-function CompletedOverlay({onReset}: {
-    onReset?: () => void
+function CompletedOverlay({onReset, rounds}: {
+    onReset?: () => void,
+    rounds: number
 }) {
     return (
         <div className={styles.overlay}>
             <div className={styles.completeMessage}>
-                <p>COMPLETE! Good Job</p>
+                <h1>Complete! Good Job</h1>
+                <p>You took <strong>{rounds}</strong> rounds to finish</p>
+                <section>
+                    <code>//TODO: accuracy breakdown</code>
+                </section>
                 <button onClick={onReset}>Play Again</button>
             </div>
         </div>
