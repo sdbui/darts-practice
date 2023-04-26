@@ -46,11 +46,11 @@ const defaultTallies: {[key: string]: number} = {
 
 function Accuracy1() {
     const navigate = useNavigate();
-    let targetQueue = useRef([...defaultTargetIds]);
-    let [tallies, setTallies] = useState(defaultTallies)
-    const [gameOver, setGameOver] = useState(true)
-    const [currentTarget, setCurrentTarget] = useState<string>('');
-    const [round, setRound] = useState<number>(1);
+    let targetQueue = useRef(JSON.parse(localStorage.getItem('targetQueue') || 'null') || [...defaultTargetIds]);
+    let [tallies, setTallies] = useState(JSON.parse(localStorage.getItem('tallies') || 'null') || defaultTallies);
+    const [gameOver, setGameOver] = useState(false)
+    const [currentTarget, setCurrentTarget] = useState<string>(localStorage.getItem('currentTarget') || ''); 
+    const [round, setRound] = useState<number>(parseInt(localStorage.getItem('round') || '1'));
     const [dartsThrown, setDartsThrown] = useState<number>(0);
     const [hitCount, setHitCount] = useState<number>(0);
     const [currentTargetText, setCurrentTargetText] = useState<string | number>('');
@@ -70,15 +70,20 @@ function Accuracy1() {
         hitCountRef.current = hitCount;
         talliesRef.current = tallies;
         roundRef.current = round;
-    },[dartsThrown, hitCount, tallies, round])
+
+        localStorage.setItem('tallies', JSON.stringify(tallies));
+        localStorage.setItem('round', `${round}`);
+    },[dartsThrown, hitCount, tallies, round]);
 
     useEffect(() => {
         currentTargetRef.current = currentTarget;
+        localStorage.setItem('currentTarget', currentTarget);
+        localStorage.setItem('targetQueue', JSON.stringify(targetQueue.current));
         let segment = Mapping.find(segment => segment.id === currentTarget);
         let targetText = segment?.id === 'sB' ? 'B' : segment?.value;
         setCurrentTargetText(targetText);
         setHighlight(currentTarget);
-    }, [currentTarget])
+    }, [currentTarget]);
 
     function handleHit(segment: Segment) {
         // do nothing if already thrown 3 darts in this round
@@ -134,6 +139,7 @@ function Accuracy1() {
                 });
 
                 setGameOver(true);
+                localStorage.clear();
                 return;
             }
         } else {
@@ -148,14 +154,15 @@ function Accuracy1() {
         setCurrentTarget(newTarget!);
         setHitCount(0);
         setThrowStatus(defaultThrowStatus);
-
     }
 
     function startGame() {
         let topTarget = targetQueue.current.shift();
         setCurrentTarget(topTarget!);
     }
+
     function resetGame() {
+        localStorage.clear();
         cleanup();
         startGame();
     }
@@ -187,11 +194,15 @@ function Accuracy1() {
         }
         handleHit(segment);
     }
-
     useEffect(() => {
-        startGame();
+        if (!localStorage.getItem('currentTarget')) {
+            startGame();
+        }
         return () => {
-            cleanup();
+            // don't cleanup if there is anything in localStorage
+            if (!localStorage.getItem('currentTarget')) {
+                cleanup();
+            }
         }
     },[]);
 
