@@ -44,10 +44,42 @@ const defaultTallies: {[key: string]: number} = {
     sB: 0,
 }
 
+interface SegmentAccuracy {
+    thrown: number;
+    hit: number;
+}
+
+interface GameAccuracy {
+    [segment: string]: SegmentAccuracy;
+    overall: SegmentAccuracy;
+    s13lrg: SegmentAccuracy;
+    s14lrg: SegmentAccuracy;
+    s15lrg: SegmentAccuracy;
+    s16lrg: SegmentAccuracy;
+    s17lrg: SegmentAccuracy;
+    s18lrg: SegmentAccuracy;
+    s19lrg: SegmentAccuracy;
+    s20lrg: SegmentAccuracy;
+    sB: SegmentAccuracy;
+}
+
+const defaultAccuracy: GameAccuracy = {
+    overall: { hit: 0, thrown: 0 },
+    s13lrg: { hit: 0, thrown: 0 },
+    s14lrg: { hit: 0, thrown: 0 },
+    s15lrg: { hit: 0, thrown: 0 },
+    s16lrg: { hit: 0, thrown: 0 },
+    s17lrg: { hit: 0, thrown: 0 },
+    s18lrg: { hit: 0, thrown: 0 },
+    s19lrg: { hit: 0, thrown: 0 },
+    s20lrg: { hit: 0, thrown: 0 },
+    sB: { hit: 0, thrown: 0 }
+}
+
 function Accuracy1() {
     const navigate = useNavigate();
     let targetQueue = useRef(JSON.parse(localStorage.getItem('targetQueue') || 'null') || [...defaultTargetIds]);
-    let [tallies, setTallies] = useState(JSON.parse(localStorage.getItem('tallies') || 'null') || defaultTallies);
+    let [tallies, setTallies] = useState(JSON.parse(localStorage.getItem('tallies') || 'null') || {...defaultTallies});
     const [gameOver, setGameOver] = useState(false)
     const [currentTarget, setCurrentTarget] = useState<string>(localStorage.getItem('currentTarget') || ''); 
     const [round, setRound] = useState<number>(parseInt(localStorage.getItem('round') || '1'));
@@ -56,6 +88,7 @@ function Accuracy1() {
     const [currentTargetText, setCurrentTargetText] = useState<string | number>('');
     const [throwStatus, setThrowStatus] = useState<ThrowStatus>(defaultThrowStatus);
     const [highlight, setHighlight] = useState('');
+    let [accuracy, setAccuracy] = useState(JSON.parse(localStorage.getItem('accuracy') || 'null') || JSON.parse(JSON.stringify(defaultAccuracy)));
 
 
     // hacky fix for callbacks in Dartboard component being called with original states always
@@ -65,22 +98,25 @@ function Accuracy1() {
     let hitCountRef = useRef(hitCount);
     let talliesRef = useRef(tallies);
     let roundRef = useRef(round);
+    let accuracyRef = useRef(accuracy);
     useEffect(()=> {
         dartsThrownRef.current = dartsThrown;
         hitCountRef.current = hitCount;
         talliesRef.current = tallies;
         roundRef.current = round;
+        accuracyRef.current = accuracy;
 
         localStorage.setItem('tallies', JSON.stringify(tallies));
         localStorage.setItem('round', `${round}`);
-    },[dartsThrown, hitCount, tallies, round]);
+        localStorage.setItem('accuracy', JSON.stringify(accuracy));
+    },[dartsThrown, hitCount, tallies, round, accuracy]);
 
     useEffect(() => {
         currentTargetRef.current = currentTarget;
         localStorage.setItem('currentTarget', currentTarget);
         localStorage.setItem('targetQueue', JSON.stringify(targetQueue.current));
         let segment = Mapping.find(segment => segment.id === currentTarget);
-        let targetText = segment?.id === 'sB' ? 'B' : segment?.value;
+        let targetText = segment?.id === 'sB' ? 'B' : (segment?.value || '');
         setCurrentTargetText(targetText);
         setHighlight(currentTarget);
     }, [currentTarget]);
@@ -117,6 +153,15 @@ function Accuracy1() {
         setTallies(newTallies);
     }
 
+    function updateAccuracy(targetId: string, hit: number) {
+        let newAccuracy = JSON.parse(JSON.stringify(accuracyRef.current));
+        newAccuracy[targetId].thrown+=3;
+        newAccuracy[targetId].hit +=hit;
+        newAccuracy.overall.hit +=hit;
+        newAccuracy.overall.thrown +=3;
+        setAccuracy(newAccuracy);
+    }
+
     function nextRound() {
         // check current round to see if we need to update anything
         if (hitCountRef.current >= 2) {
@@ -147,6 +192,7 @@ function Accuracy1() {
             targetQueue.current.push(currentTargetRef.current!);
         }
 
+        updateAccuracy(currentTargetRef.current, hitCountRef.current);
         setRound(round => round + 1);
         setDartsThrown(0);
         // get next target
@@ -169,11 +215,12 @@ function Accuracy1() {
     function cleanup() {
         setCurrentTarget('');
         targetQueue.current = [...defaultTargetIds];
+        setAccuracy(JSON.parse(JSON.stringify(defaultAccuracy)));
         setRound(1);
         setHitCount(0);
         setDartsThrown(0);
         setGameOver(false);
-        setTallies(defaultTallies);
+        setTallies({...defaultTallies});
         setThrowStatus(defaultThrowStatus);
     }
 
@@ -257,17 +304,18 @@ function Accuracy1() {
                 </div>
             </div>
             <TallyBoard includeBull tallies={tallies}></TallyBoard>
-            {gameOver ? <CompletedOverlay rounds={roundRef.current}onReset={() => {
+            {gameOver ? <CompletedOverlay rounds={roundRef.current} onReset={() => {
                 resetGame();
-            }} /> : null}
+            }} accuracy={accuracyRef.current} /> : null}
         </div>
     )
 
 }
 
-function CompletedOverlay({onReset, rounds}: {
+function CompletedOverlay({onReset, rounds, accuracy}: {
     onReset?: () => void,
-    rounds: number
+    rounds: number,
+    accuracy: GameAccuracy
 }) {
     return (
         <div className={styles.overlay}>
@@ -275,9 +323,37 @@ function CompletedOverlay({onReset, rounds}: {
                 <h1>Complete! Good Job</h1>
                 <p>You took <strong>{rounds}</strong> rounds to finish</p>
                 <section>
-                    <code>//TODO: accuracy breakdown</code>
+                    <AccuracyBreakdown accuracy={accuracy}/>
                 </section>
                 <button onClick={onReset}>Play Again</button>
+            </div>
+        </div>
+    )
+}
+
+function AccuracyBreakdown({accuracy}: {accuracy: GameAccuracy}) {
+
+    const format = (num: number) => {
+        return (num * 100).toFixed(2);
+    }
+
+    return (
+        <div className={styles.accuracyBreakdown}>
+            <div className={styles.segmentAccuracy}>
+                <div className={styles.segmentName}>overall</div>
+                <div>{format(accuracy.overall.hit / accuracy.overall.thrown)}</div>
+            </div>
+            <div className={styles.segmentList}>
+            {Object.keys(accuracy).map((key,idx) => {
+                if (key === 'overall') return null;
+                let segment = Mapping.find(x => x.id === key);
+                return (
+                    <div key={idx} className={styles.segmentAccuracy}>
+                        <div className={styles.segmentName}>{segment?.value === 25 ? 'B' : segment?.value ? segment?.value : key}</div>
+                        <div className={styles.segmentPercent}>{format(accuracy[key].hit / accuracy[key].thrown)}</div>
+                    </div>
+                )
+            })}
             </div>
         </div>
     )
