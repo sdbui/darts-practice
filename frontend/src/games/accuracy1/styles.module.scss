@@ -113,7 +113,7 @@
 }
 
 .completeMessage {
-    height: 50vh;
+    // height: 50vh;
     width: 50vw;
     text-align: center;
     background: #ddd;
@@ -223,4 +223,35 @@
     &.miss svg {
         fill: rgb(247, 61, 61)
     }
+}
+
+.segmentList {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-top: 20px;
+    justify-content: center;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+.segmentAccuracy {
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 100px;
+    padding: 10px 0;
+}
+
+.accuracyBreakdown {
+    padding: 10px 0 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.segmentName {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
