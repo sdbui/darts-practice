@@ -26,11 +26,21 @@ app.get('/api/results', async (req, res, next) => {
 
 app.post('/api/results', async (req, res, next) => {
     let { rounds, accuracy } = req.body;
+
+    const format = (num) => {
+        return (num * 100).toFixed(2);
+    }
+    let formattedAccuracy = {};
+    for (let key in accuracy) {
+        let {hit, thrown} = accuracy[key];
+        formattedAccuracy[key] = parseFloat(format(hit / thrown));
+    }
+
     try {
         const collection = await db.collection('results');
         let response = await collection.insertOne({
             rounds,
-            accuracy
+            accuracy: formattedAccuracy
         });
         res.status(200).json('ok!');
     } catch (e) {
