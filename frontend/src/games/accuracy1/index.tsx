@@ -160,13 +160,16 @@ function Accuracy1() {
         newAccuracy.overall.hit +=hit;
         newAccuracy.overall.thrown +=3;
         setAccuracy(newAccuracy);
+        return newAccuracy;
     }
 
     function nextRound() {
         // check current round to see if we need to update anything
+        let acc = updateAccuracy(currentTargetRef.current, hitCountRef.current);
         if (hitCountRef.current >= 2) {
             // we hit our target 2 times... decrement remaining and add back to queue
             addTallyMark(currentTargetRef.current);
+
 
             // talies wont be updated until next render... so if the current tallies is 4, that means it will be 5 next render.
             // therefore, don't add back to the targetQueue
@@ -176,11 +179,12 @@ function Accuracy1() {
             // check for completion
             if (!targetQueue.current.length) {
                 console.log('COMPLETE!');
-
+                console.log(acc);
                 // save game results to server here??
                 // TODO: Add accuracy as well
                 StatsService.addResult({
-                    rounds: roundRef.current
+                    rounds: roundRef.current,
+                    accuracy: acc,
                 });
 
                 setGameOver(true);
@@ -192,7 +196,6 @@ function Accuracy1() {
             targetQueue.current.push(currentTargetRef.current!);
         }
 
-        updateAccuracy(currentTargetRef.current, hitCountRef.current);
         setRound(round => round + 1);
         setDartsThrown(0);
         // get next target
