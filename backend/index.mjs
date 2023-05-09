@@ -17,7 +17,6 @@ app.get('/api/results', async (req, res, next) => {
         let result = await collection.find({})
             .limit(30)
             .toArray()
-        console.log(result)
         res.status(200).json(result);
     } catch (e) {
         res.status(400).send('uh OH!')
@@ -25,7 +24,7 @@ app.get('/api/results', async (req, res, next) => {
 });
 
 app.post('/api/results', async (req, res, next) => {
-    let { rounds, accuracy } = req.body;
+    let { rounds, accuracy, board } = req.body;
 
     const format = (num) => {
         return (num * 100).toFixed(2);
@@ -40,7 +39,8 @@ app.post('/api/results', async (req, res, next) => {
         const collection = await db.collection('results');
         let response = await collection.insertOne({
             rounds,
-            accuracy: formattedAccuracy
+            board,
+            accuracy: formattedAccuracy 
         });
         res.status(200).json('ok!');
     } catch (e) {

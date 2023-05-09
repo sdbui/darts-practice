@@ -89,6 +89,7 @@ function Accuracy1() {
     const [throwStatus, setThrowStatus] = useState<ThrowStatus>(defaultThrowStatus);
     const [highlight, setHighlight] = useState('');
     let [accuracy, setAccuracy] = useState(JSON.parse(localStorage.getItem('accuracy') || 'null') || JSON.parse(JSON.stringify(defaultAccuracy)));
+    const [boardType, setBoardType] = useState<'soft' | 'steel'>('soft');
 
 
     // hacky fix for callbacks in Dartboard component being called with original states always
@@ -185,6 +186,7 @@ function Accuracy1() {
                 StatsService.addResult({
                     rounds: roundRef.current,
                     accuracy: acc,
+                    board: boardType,
                 });
 
                 setGameOver(true);
@@ -263,9 +265,19 @@ function Accuracy1() {
         navigate('/stats');
     }
 
+    function toggleBoardType() {
+        setBoardType(currentType => {
+            return currentType === 'soft' ? 'steel' : 'soft'
+        });
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.game}>
+                <div className={styles.boardTypeToggle}>
+                    <input type="checkbox" id="board-type" onChange={toggleBoardType}></input>
+                    <label htmlFor="board-type"> Steeltip </label>
+                </div>
                 <div className={styles.gameActions}>
                     <div onClick={resetGame} className={styles.action}>
                         <RestartAlt fontSize="inherit"/>
