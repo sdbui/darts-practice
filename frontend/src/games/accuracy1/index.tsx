@@ -271,12 +271,29 @@ function Accuracy1() {
         });
     }
 
+    function debugCompletion() {
+        const almostComplete = {
+            s20lrg: 4,
+            s19lrg: 4,
+            s18lrg: 4,
+            s17lrg: 4,
+            s16lrg: 4,
+            s15lrg: 4,
+            s14lrg: 4,
+            s13lrg: 4,
+            sB: 4
+        }
+        setTallies(almostComplete);
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.game}>
+                {/* <button onClick={debugCompletion}>mockcomplete</button> */}
                 <div className={styles.boardTypeToggle}>
+                    <span>Steel Tip</span>
                     <input type="checkbox" id="board-type" onChange={toggleBoardType}></input>
-                    <label htmlFor="board-type"> Steeltip </label>
+                    <label htmlFor="board-type"></label>
                 </div>
                 <div className={styles.gameActions}>
                     <div onClick={resetGame} className={styles.action}>
