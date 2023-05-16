@@ -18,12 +18,20 @@ import Home from '@mui/icons-material/Home';
 import VideogameAssetOutlined from '@mui/icons-material/VideogameAssetOutlined';
 
 import StatsService from './stats-service';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
+interface StatsQuery {
+    board: string;
+    count: number;
+}
+
 function Stats() {
+    const [query, setQuery] = useState<StatsQuery>({ board: 'soft', count: 100});
     const { results } = useLoaderData() as any;
     const navigate = useNavigate();
-    let data: GameResult[] = results;
+    // let data: GameResult[] = results;
+    let [data, setData] = useState<GameResult[]>(results);
 
     const Line = ({ data }: {data: GameResult[]}) => {
         // format data for nivo
@@ -101,6 +109,21 @@ function Stats() {
     const goPractice = () => {
         navigate('/accuracy1')
     }
+
+    const updateBoardQuery = (board: string) => {
+        setQuery(prev => ({...prev, board}));
+    }
+    const updateCountQuery = (e: ChangeEvent) => {
+        let count = parseInt((e.target as HTMLSelectElement).value);
+        setQuery(prev => ({...prev, count}));
+    }
+    useEffect(() => {
+        let fetchData = async () => {
+            let results = await StatsService.getLatestResults({count: query.count, board: query.board});
+            setData(results);
+        }
+        fetchData();
+    }, [query]);
     return (
         <div className={styles.container}>
             <div className={styles.nav}>
@@ -112,6 +135,20 @@ function Stats() {
                 </div>
             </div>
             <p className={styles.title}>Latest results of A1</p>
+            <div className={styles.boardType}>
+                <button onClick={()=>updateBoardQuery('steel')} className={query.board === 'steel' ? styles.selected : 'null'}>steel</button>
+                <button onClick={()=>updateBoardQuery('soft')} className={query.board === 'soft' ? styles.selected : 'null'}>soft</button>
+            </div>
+            <div className={styles.countSelector}>
+                <span>Showing</span>
+                <select onChange={updateCountQuery} defaultValue="10">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>30</option>
+                    <option>100</option>
+                </select>
+                <span>results</span>
+            </div>
             <div className={styles.test}>
                 <Line data={data}></Line>
             </div>
@@ -120,7 +157,7 @@ function Stats() {
 }
 
 const statsLoader = async () => {
-    let results = await StatsService.getLatestResults();
+    let results = await StatsService.getLatestResults({count: 10, board: 'soft'});
     return {
         results
     }

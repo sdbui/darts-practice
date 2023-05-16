@@ -180,9 +180,6 @@ function Accuracy1() {
             // check for completion
             if (!targetQueue.current.length) {
                 console.log('COMPLETE!');
-                console.log(acc);
-                // save game results to server here??
-                // TODO: Add accuracy as well
                 StatsService.addResult({
                     rounds: roundRef.current,
                     accuracy: acc,

@@ -11,11 +11,14 @@ import bodyParser from 'body-parser';
 app.use(bodyParser.json());
 
 app.get('/api/results', async (req, res, next) => {
+    let { count=100, board='soft' } = req.query;
     try {
         // get all the stats
         const collection = await db.collection('results');
-        let result = await collection.find({})
-            .limit(30)
+        let countDocs = await collection.countDocuments({board});
+        let result = await collection.find({board})
+            .skip(Math.max(countDocs - count, 0))
+            .limit(100)
             .toArray()
         res.status(200).json(result);
     } catch (e) {

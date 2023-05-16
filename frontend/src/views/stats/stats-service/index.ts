@@ -1,7 +1,15 @@
 const StatsService = {
-    getLatestResults: async () => {
+    getLatestResults: async ({count=100, board='soft'}: {count: number, board: string}) => {
+        let url = '/api/results/?';
+
+        if (count) {
+            url+= `&count=${count}`
+        }
+        if (board) {
+            url+= `&board=${board}`
+        }
+
         try {
-            let url = '/api/results';
             let results = await fetch(url);
             let json = await results.json();
             return json;

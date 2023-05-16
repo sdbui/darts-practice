@@ -26,3 +26,21 @@
     color: #ddd;
     font-size: 2.5rem;
 }
+
+.boardType {
+    display: flex;
+    button {
+        min-width: 100px;
+        &.selected {
+            background: #cab069;
+        }
+    }
+}
+
+.countSelector {
+    margin: 25px 0;
+    color: #ddd;
+    select {
+        margin: 0 10px;
+    }
+}
